@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: angular-frontend
+spec:
+  type: NodePort
+  ports:
+    - name: "http"
+      port: 8080
+      targetPort: 80
+      nodePort: 32002
+  selector:
+    app: angular-frontend

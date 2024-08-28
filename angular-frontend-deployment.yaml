@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: angular-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: angular-frontend
+  template:
+    metadata:
+      labels:
+        app: angular-frontend
+    spec:
+      containers:
+        - image: 851725543862.dkr.ecr.eu-west-2.amazonaws.com/zenoffice/front:latest
+          name: angular-frontend
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          imagePullPolicy: Always
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: ecr-registry-secret

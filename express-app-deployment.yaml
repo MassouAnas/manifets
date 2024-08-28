@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: express-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: express-app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: express-app
+    spec:
+      containers:
+        - name: express-app
+          image: 851725543862.dkr.ecr.eu-west-2.amazonaws.com/zenoffice/back:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+              protocol: TCP
+            - containerPort: 9100
+              protocol: TCP
+          env:
+            - name: JWT_SECRET
+              valueFrom:
+                configMapKeyRef:
+                  key: JWT_SECRET
+                  name: env
+            - name: MONGO_URI
+              valueFrom:
+                configMapKeyRef:
+                  key: MONGO_URI
+                  name: env
+            - name: NODE_ENV
+              valueFrom:
+                configMapKeyRef:
+                  key: NODE_ENV
+                  name: env
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: PORT
+                  name: env
+          volumeMounts:
+            - mountPath: /app/src/log
+              name: express-app-claim0
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: ecr-registry-secret
+      volumes:
+        - name: express-app-claim0
+          persistentVolumeClaim:
+            claimName: express-app-claim0

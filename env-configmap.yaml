@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env
+data:
+  JWT_SECRET: MySecret
+  MONGO_URI: mongodb://user123:password123@mongodb:27017/mydatabase?authSource=mydatabase
+  NODE_ENV: DEV
+  PORT: "3000"
