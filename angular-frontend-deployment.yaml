@@ -21,4 +21,4 @@ spec:
           imagePullPolicy: Always
       restartPolicy: Always
       imagePullSecrets:
-        - name: ecr-registry-secret
+        - name: mysecret

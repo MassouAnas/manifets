@@ -49,7 +49,7 @@ spec:
               name: express-app-claim0
       restartPolicy: Always
       imagePullSecrets:
-        - name: ecr-registry-secret
+        - name: mysecret
       volumes:
         - name: express-app-claim0
           persistentVolumeClaim:
